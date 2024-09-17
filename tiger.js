@@ -35,7 +35,7 @@ async function startBot() {
                 ])
             }
         );
-    }, 3600000); // Enviar mensagem a cada 1 hora (3600000 milissegundos)
+    }, 60000); // Enviar mensagem a cada 1 hora (3600000 milissegundos)
 }
 
 startBot();
