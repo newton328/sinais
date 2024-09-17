@@ -1,17 +1,13 @@
-const { Telegraf } = require('telegraf');
 
-const api_key = ''; //Api do bot
-const chat_id = ''; //Id do grupo
-const LINK_SITE = 'https://goldbet.games/cadastro?refId=Mjc1N3JlZklk';
+const { Telegraf, Markup } = require('telegraf');
+
+const api_key = '7483701142:AAEoqVhCRbYUvuwsQIj4iRT-wRlfIavuxmg'; // Insira sua API do bot aqui
+const chat_id = '-1002345480985'; // Insira o ID do grupo aqui
+const LINK_SITE = 'https://supragamez.shop';
 const bot = new Telegraf(api_key);
 
-
 async function startBot() {
-    let iterationCount = 0;
-
     setInterval(async () => {
-        iterationCount++;
-
         const now = new Date();
         const tz = 'America/Sao_Paulo';
         const timeNow = new Date(now.toLocaleString('en-US', { timeZone: tz }));
@@ -20,63 +16,26 @@ async function startBot() {
         let m = timeNow.getMinutes();
         let s = timeNow.getSeconds();
 
-        if (m > 59) {
-            h += 1;
-            m = 0;
-        }
-        if (h === 9) {
-            m = `0${h}`;
-        }
-        if (m < 9) {
-            m = `0${m}`;
-        }
-        if (s < 9) {
-            s = `0${s}`;
-        }
         console.log(`${h}:${m}:${s}`);
 
-        const numero_aleatorio1 = Math.floor(Math.random() * 10) + 1;
-        const numero_aleatorio2 = Math.floor(Math.random() * 10) + 1;
-
-        console.log(numero_aleatorio1, numero_aleatorio2);
-
-     await bot.telegram.sendPhoto(
-        chat_id,
-        { source: 'tigrinho.jpg' },
-        {
-            caption: `
-🐯 *Sinais do Mestre - Oportunidade Imperdível!* 🚀
-
-🎲 *FORTUNE TIGER - Nova Oportunidade!*
-- ⏰ *Tolerância:* 3 minutos
-- 🎯 *Gire:* ${numero_aleatorio2}X no *TURBO* e recarregue o jogo
-- 🔄 Depois, gire ${numero_aleatorio1}X *MANUAL*
-- 🟢 *Saia no Primeiro Grande Ganho!*
-
-🌐 *Plataforma dos Sinais:* [Clique Aqui](${LINK_SITE})
-🔗 *Sinais funcionam apenas na plataforma acima* 
-
-📢 *Não perca essa chance! Chame seus amigos e jogue agora!*
-
-🤑 *Boa sorte e que venham os ganhos!* 🤑
-            `,
-            parse_mode: 'Markdown',
-            disable_web_page_preview: true
-        }
-    );
-
-    }, 60000);
-
-    setTimeout(async () => {
-        await bot.telegram.sendMessage(
+        await bot.telegram.sendPhoto(
             chat_id,
-            `🎯 *Boas notícias!* 🌟\n\nA *CARTA LIBERADA* \n\n *GREEN*! 🟢💰`,
+            { source: 'tigrinho.jpg' }, // Insira o caminho da imagem aqui
             {
+                caption: `
+🎰 *Aproveite essa Oportunidade Incrível!* 🎰
+
+📢 Cadastre-se no *Cassino SUPRA GAMEZ* agora e tenha acesso a várias promoções e bônus exclusivos! Não perca essa chance!
+
+🌐 *Clique no botão abaixo para se cadastrar:*
+                `,
                 parse_mode: 'Markdown',
-                disable_web_page_preview: true
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('🎲 Cadastre-se Aqui', LINK_SITE)
+                ])
             }
         );
-    }, 240000);
+    }, 3600000); // Enviar mensagem a cada 1 hora (3600000 milissegundos)
 }
 
 startBot();
